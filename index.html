@@ -553,31 +553,31 @@
 
     <!-- PAPER 1 — Bar chart example -->
     <div class="paper-card fade-up">
-      <div class="paper-left">
-        <div class="paper-meta-row">
-          <span class="paper-year">2024</span>
-          <div class="paper-tags">
-            <span class="tag">Published</span>
-            <span class="tag">Labor Economics</span>
-          </div>
-        </div>
-        <p class="paper-title">Your Most Recent Paper Title Goes Here: A Study of Something Important</p>
-        <p class="paper-journal">Journal of Economic Perspectives, Vol. 38(2), pp. 1–34</p>
-        <p class="paper-hook">
-          Firms that adopted policy X saw wages rise by 18% — but only for workers who stayed. 
-          Those who left earned 12% less five years later. The divergence reveals a hidden cost 
-          of labor market rigidity that standard models fail to capture.
-        </p>
-        <!-- 🔗 Replace # with your OneDrive share link -->
-        <a href="#" target="_blank" class="paper-readmore">Read the paper →</a>
-      </div>
-      <div class="paper-right">
-        <p class="chart-title">Wage effect by worker group (%, relative to control)</p>
-        <div class="chart-wrap">
-          <canvas id="chart1"></canvas>
-        </div>
+  <div class="paper-left">
+    <div class="paper-meta-row">
+      <span class="paper-year">2025</span>
+      <div class="paper-tags">
+        <span class="tag">Published</span>
+        <span class="tag">Air Transport</span>
+        <span class="tag">Tourism</span>
       </div>
     </div>
+    <p class="paper-title">More seats, more tourists? Evidence from Peru</p>
+    <p class="paper-journal">Journal of Air Transport Management, 127, 102796</p>
+    <p class="paper-hook">
+      Peru's tourism boom wasn't just about Machu Picchu — it was about planes.
+      Adding seats on direct flights to the US raised tourist arrivals by 0.36% per 1% increase.
+      And expanding routes to Spain pulled in more tourists from Italy, Switzerland, and Germany too.
+    </p>
+    <a href="https://www.sciencedirect.com/science/article/abs/pii/S0969699725000596" target="_blank" class="paper-readmore">Read the paper →</a>
+  </div>
+  <div class="paper-right">
+    <p class="chart-title">Estimated elasticity of tourist arrivals to seat availability, by market</p>
+    <div class="chart-wrap">
+      <canvas id="chart1"></canvas>
+    </div>
+  </div>
+</div>
 
     <!-- PAPER 2 — Line chart example -->
     <div class="paper-card fade-up">
@@ -879,40 +879,37 @@
   // 🛠  Replace labels & data with your own numbers
   // ─────────────────────────────────────────────
   new Chart(document.getElementById('chart1'), {
-    type: 'bar',
-    data: {
-      labels: ['Stayers', 'Leavers (1yr)', 'Leavers (5yr)', 'Control'],
-      datasets: [{
-        label: 'Wage effect (%)',
-        data: [18, 4, -12, 0],
-        backgroundColor: ['#1a3a5c', '#2e6099', '#9ab3c8', '#e0ddd8'],
-        borderWidth: 0,
-        borderRadius: 2,
-      }]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: { label: ctx => ` ${ctx.parsed.x > 0 ? '+' : ''}${ctx.parsed.x}%` }
-        }
-      },
-      scales: {
-        x: {
-          grid: gridOpts, ticks: tickOpts,
-          border: { display: false },
-        },
-        y: {
-          grid: { display: false },
-          ticks: { padding: 6 },
-          border: { display: false },
-        }
+  type: 'bar',
+  data: {
+    labels: ['United States', 'Europe (total)', 'Italy (via Spain)', 'Switzerland (via Spain)', 'Germany (via Spain)'],
+    datasets: [{
+      label: 'Elasticity estimate',
+      data: [0.36, 0.02, 0.05, 0.08, 0.06],
+      backgroundColor: ['#1a3a5c', '#9ab3c8', '#2e6099', '#2e6099', '#2e6099'],
+      borderWidth: 0,
+      borderRadius: 2,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => ` ${ctx.parsed.x}% increase per 1% more seats` }
       }
+    },
+    scales: {
+      x: {
+        grid: gridOpts, ticks: tickOpts,
+        border: { display: false },
+        title: { display: true, text: 'Elasticity (% tourists / % seats)', color: STONE, font: { size: 10 } }
+      },
+      y: { grid: { display: false }, ticks: { padding: 6 }, border: { display: false } }
     }
-  });
+  }
+});
 
   // ─────────────────────────────────────────────
   // CHART 2 — Line (export volume index over time)
