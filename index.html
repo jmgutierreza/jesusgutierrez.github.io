@@ -494,7 +494,7 @@
       <div class="avatar-accent"></div>
       <div class="avatar-inner">
         <div class="avatar-placeholder">
-          <img src="photo.jpeg" style="width:100%;height:100%;object-fit:cover;border-radius:50%">
+          <!-- Replace with: <img src="your-photo.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:50%"> -->
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#8a8880" stroke-width="1.2">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
           </svg>
@@ -805,7 +805,7 @@
       <ul class="contact-links">
         <li>
           <span class="contact-icon">✉</span>
-          <a href="mailto:j.gutierrezandrade@lancaster.ac.uk">j.gutierrezandrade@lancaster.ac.uk</a>
+          <a href="/cdn-cgi/l/email-protection#d7bdf9b0a2a3beb2a5a5b2adb6b9b3a5b6b3b297bbb6b9b4b6a4a3b2a5f9b6b4f9a2bc"><span class="__cf_email__" data-cfemail="95ffbbf2e0e1fcf0e7e7f0eff4fbf1e7f4f1f0d5f9f4fbf6f4e6e1f0e7bbf4f6bbe0fe">[email&#160;protected]</span></a>
         </li>
         <li>
           <span class="contact-icon">🏛</span>
@@ -841,7 +841,7 @@
   <span>Lancaster University · Department of Economics</span>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
   // ── Scroll animations ──
   const observer = new IntersectionObserver((entries) => {
@@ -1022,4 +1022,15 @@
       scales: {
         x: {
           grid: gridOpts, ticks: tickOpts, border: { display: false },
-          title: { display: true, text: 'Leverage ratio', color: STONE, font: { size: 10 
+          title: { display: true, text: 'Leverage ratio', color: STONE, font: { size: 10 } }
+        },
+        y: {
+          grid: gridOpts, ticks: tickOpts, border: { display: false },
+          title: { display: true, text: 'Return volatility', color: STONE, font: { size: 10 } }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>
