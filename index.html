@@ -593,14 +593,14 @@
     <p class="paper-title">¿Focalizar para mejorar? Análisis de políticas e incentivos de atracción docente en el Perú</p>
     <p class="paper-journal">CIES / MEF — Policy Report (with Antonio Campos)</p>
     <p class="paper-hook">
-      In Peru's last four teacher hiring contests, fewer than 30% of posts were filled nationwide —
-      and in Loreto, less than 7%. Using machine learning, we identify which schools teachers
-      systematically avoid and what makes them unattractive, to redesign incentives from the ground up.
+      Nearly half of Peru's public schools are systematically avoided by teachers in hiring contests.
+      Using machine learning on 59,000 schools, we show that the hardest-to-staff schools sit
+      3 days away from their regional capital — and that one policy cannot fix five very different problems.
     </p>
     <a href="https://www.mef.gob.pe/contenidos/presu_publ/ppr/eval_indep/PMAT1_1111_103_IF.pdf" target="_blank" class="paper-readmore">Read the paper →</a>
   </div>
   <div class="paper-right">
-    <p class="chart-title">School characteristics: most vs. least chosen by teachers (cluster contrast)</p>
+    <p class="chart-title">School profile: most vs. least attractive clusters (avg. values)</p>
     <div class="chart-wrap">
       <canvas id="chart2"></canvas>
     </div>
@@ -892,18 +892,25 @@
 new Chart(document.getElementById('chart2'), {
   type: 'bar',
   data: {
-    labels: ['Rural location', 'No electricity', 'No internet', 'Multigrade school', 'Remote district', 'Low enrollment'],
+    labels: [
+      'Travel time to\nregional capital (hrs)',
+      'Housing with\nelectricity (%)',
+      'Housing with\nwater access (%)',
+      'EIB school\n(bilingual, %)',
+      'Students with\npedagogical degree',
+      'Students per\nclassroom'
+    ],
     datasets: [
       {
-        label: 'Most chosen schools (%)',
-        data: [12, 8, 21, 15, 9, 18],
+        label: 'Group 1 — Hardest to staff (n=624)',
+        data: [65.9, 22, 6, 74, 2.5, 10.6],
         backgroundColor: '#1a3a5c',
         borderRadius: 2,
         borderWidth: 0,
       },
       {
-        label: 'Least chosen schools (%)',
-        data: [89, 74, 93, 81, 88, 76],
+        label: 'Group 5 — Least unattractive (n=4,381)',
+        data: [1.4, 72, 65, 5, 19.4, 23.7],
         backgroundColor: '#9ab3c8',
         borderRadius: 2,
         borderWidth: 0,
@@ -920,14 +927,21 @@ new Chart(document.getElementById('chart2'), {
         labels: { boxWidth: 12, padding: 14, font: { size: 10 } }
       },
       tooltip: {
-        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}%` }
+        callbacks: {
+          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y}`
+        }
       }
     },
     scales: {
-      x: { grid: { display: false }, ticks: { font: { size: 9 } }, border: { display: false } },
+      x: {
+        grid: { display: false },
+        ticks: { font: { size: 9 }, maxRotation: 0 },
+        border: { display: false }
+      },
       y: {
-        grid: gridOpts, ticks: { ...tickOpts, callback: v => v + '%' },
-        border: { display: false }, max: 100
+        grid: gridOpts,
+        ticks: tickOpts,
+        border: { display: false }
       }
     }
   }
