@@ -607,33 +607,6 @@
   </div>
 </div>
 
-    <!-- PAPER 3 — Scatter chart example -->
-    <div class="paper-card fade-up">
-      <div class="paper-left">
-        <div class="paper-meta-row">
-          <span class="paper-year">2022</span>
-          <div class="paper-tags">
-            <span class="tag">Published</span>
-            <span class="tag">Finance</span>
-          </div>
-        </div>
-        <p class="paper-title">Third Paper Title — with a Long and Descriptive Subtitle Here</p>
-        <p class="paper-journal">American Economic Review, Vol. 112(6), pp. 1901–1942</p>
-        <p class="paper-hook">
-          Firms with higher leverage did not take more risks — they took different risks. 
-          The correlation between debt and volatility collapses once you control for 
-          industry concentration, overturning a 30-year consensus.
-        </p>
-        <a href="#" target="_blank" class="paper-readmore">Read the paper →</a>
-      </div>
-      <div class="paper-right">
-        <p class="chart-title">Leverage ratio vs. return volatility by firm (N = 4,200)</p>
-        <div class="chart-wrap">
-          <canvas id="chart3"></canvas>
-        </div>
-      </div>
-    </div>
-
   </div><!-- /papers-grid -->
 
   <div class="wip-section fade-up">
@@ -960,71 +933,6 @@ new Chart(document.getElementById('chart2'), {
   }
 });
 
-  // ─────────────────────────────────────────────
-  // CHART 3 — Scatter (leverage vs volatility)
-  // 🛠  Replace with your own data points
-  //     Generate ~50 points with: {x: leverage, y: volatility}
-  // ─────────────────────────────────────────────
-  function rng(seed) {
-    // simple seeded pseudo-random so the chart looks the same every load
-    let s = seed;
-    return () => { s = (s * 16807 + 0) % 2147483647; return (s - 1) / 2147483646; };
-  }
-  const rand = rng(42);
-  const scatterData = Array.from({ length: 80 }, (_, i) => {
-    const x = rand() * 0.8 + 0.05;
-    // slight negative correlation to match paper narrative
-    const y = 0.35 - x * 0.15 + (rand() - 0.5) * 0.22;
-    return { x: +x.toFixed(3), y: +Math.max(0.05, y).toFixed(3) };
-  });
-
-  new Chart(document.getElementById('chart3'), {
-    type: 'scatter',
-    data: {
-      datasets: [
-        {
-          label: 'High-concentration industry',
-          data: scatterData.slice(0, 40),
-          backgroundColor: 'rgba(26,58,92,0.55)',
-          pointRadius: 4,
-          pointHoverRadius: 5,
-        },
-        {
-          label: 'Low-concentration industry',
-          data: scatterData.slice(40),
-          backgroundColor: 'rgba(138,136,128,0.4)',
-          pointRadius: 4,
-          pointHoverRadius: 5,
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: true,
-          position: 'bottom',
-          labels: { boxWidth: 10, padding: 12, font: { size: 10 } }
-        },
-        tooltip: {
-          callbacks: {
-            label: ctx => `Leverage: ${ctx.parsed.x}  Volatility: ${ctx.parsed.y}`
-          }
-        }
-      },
-      scales: {
-        x: {
-          grid: gridOpts, ticks: tickOpts, border: { display: false },
-          title: { display: true, text: 'Leverage ratio', color: STONE, font: { size: 10 } }
-        },
-        y: {
-          grid: gridOpts, ticks: tickOpts, border: { display: false },
-          title: { display: true, text: 'Return volatility', color: STONE, font: { size: 10 } }
-        }
-      }
-    }
-  });
 </script>
 </body>
 </html>
