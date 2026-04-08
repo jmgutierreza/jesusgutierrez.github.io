@@ -577,9 +577,9 @@
   </div>
   <div class="paper-right">
     <p class="chart-title">Estimated elasticity of tourist arrivals to seat availability, by market</p>
-    <div class="chart-wrap">
-      <canvas id="chart1"></canvas>
-    </div>
+  <div class="chart-wrap" style="height:180px;">
+     <canvas id="chart1"></canvas>
+  </div>
   </div>
 </div>
 
@@ -895,8 +895,7 @@
   options: {
     indexAxis: 'y',
     responsive: true,
-    maintainAspectRatio: true,
-    aspectRatio: 2,
+    maintainAspectRatio: false,
     plugins: {
       legend: { display: false },
       tooltip: {
