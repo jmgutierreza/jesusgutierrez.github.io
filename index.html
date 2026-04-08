@@ -557,6 +557,47 @@
 
   <div class="papers-grid">
 
+    <!-- PHD RESEARCH HEADER -->
+<div style="margin-bottom:2rem; padding-bottom:1rem; border-bottom: 2px solid var(--accent);">
+  <p style="font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 .3rem; font-weight:500;">PhD Research</p>
+  <p style="font-size:.85rem; color:var(--stone); margin:0;">Lancaster University · 2024–present</p>
+</div>
+
+<!-- PHD PAPER — Classroom Rank -->
+<div class="paper-card fade-up">
+  <div class="paper-left">
+    <div class="paper-meta-row">
+      <span class="paper-year">2026</span>
+      <div class="paper-tags">
+        <span class="tag">Working Paper</span>
+        <span class="tag">Education</span>
+        <span class="tag">Peru</span>
+      </div>
+    </div>
+    <p class="paper-title">Who Stays the Course? Early Classroom Rank and Educational Trajectories</p>
+    <p class="paper-journal">Working Paper (with Saurabh Singhal) · Lancaster University</p>
+    <p class="paper-hook">
+      Where you rank in Grade 2 shapes whether you finish school a decade later — but not because
+      of what you learn. High rank builds aspirations and parental investment; low rank erodes them.
+      Yet when top-ranked students from poor families reach the university gate, socioeconomic
+      barriers stop merit from becoming access.
+    </p>
+    <a href="#" target="_blank" class="paper-readmore">Read the paper →</a>
+  </div>
+  <div class="paper-right">
+    <p class="chart-title">Effect of Grade 2 rank on educational outcomes across the distribution</p>
+    <div class="chart-wrap" style="height:200px;">
+      <canvas id="chart0"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- PRE-PHD HEADER -->
+<div style="margin: 3rem 0 2rem; padding-bottom:1rem; border-bottom: 1px solid var(--line);">
+  <p style="font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--stone); margin:0 0 .3rem; font-weight:500;">Previous Work</p>
+  <p style="font-size:.85rem; color:var(--stone); margin:0;">Pre-PhD research & policy work</p>
+</div>
+    
     <!-- PAPER 1 — Bar chart example -->
     <div class="paper-card fade-up">
   <div class="paper-left">
@@ -878,6 +919,66 @@
   };
   const tickOpts = { padding: 8 };
 
+// ─────────────────────────────────────────────
+// CHART 0 — Rank effects across distribution
+// Shows: repetition risk (bottom tail) vs university application gains (top tail)
+// ─────────────────────────────────────────────
+new Chart(document.getElementById('chart0'), {
+  type: 'bar',
+  data: {
+    labels: ['0–5', '5–10', '10–15', '15–20', '20–25', '25–30', '30–35', '35–40', '40–45', '45–50',
+             '51–55', '55–60', '60–65', '65–70', '70–75', '75–80', '80–85', '85–90', '90–95', '95–100'],
+    datasets: [
+      {
+        label: 'Grade repetition risk (pp)',
+        data: [8.2, 6.1, 4.8, 3.5, 2.4, 1.8, 1.2, 0.6, 0.2, 0,
+               0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        backgroundColor: '#c0392b',
+        borderWidth: 0,
+        borderRadius: 2,
+      },
+      {
+        label: 'University application gain (pp)',
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+               0, 0, 0, 0, 0, 0.3, 0.8, 1.4, 2.1, 3.8],
+        backgroundColor: '#1a3a5c',
+        borderWidth: 0,
+        borderRadius: 2,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: { boxWidth: 12, padding: 14, font: { size: 10 } }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y} pp`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: { font: { size: 9 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 },
+        border: { display: false },
+        title: { display: true, text: 'Grade 2 classroom rank percentile', color: STONE, font: { size: 10 } }
+      },
+      y: {
+        grid: gridOpts,
+        ticks: { ...tickOpts, callback: v => v + ' pp' },
+        border: { display: false },
+        title: { display: true, text: 'Estimated effect (pp)', color: STONE, font: { size: 10 } }
+      }
+    }
+  }
+});
+  
   // ─────────────────────────────────────────────
   // CHART 1 — Horizontal Bar (wage effect by group)
   // 🛠  Replace labels & data with your own numbers
