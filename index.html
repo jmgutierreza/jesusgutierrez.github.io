@@ -61,13 +61,11 @@
   /* ── HERO ── */
   #home {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
-    justify-content: center;
-    text-align: center;
     padding: 8rem 3rem 4rem;
-    gap: 2rem;
+    gap: 4rem;
     background: var(--white);
   }
   .hero-text { max-width: 520px; }
@@ -100,7 +98,7 @@
     margin-bottom: 2.4rem;
     line-height: 1.8;
   }
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
   .btn-primary {
     background: var(--accent);
     color: #fff;
@@ -481,10 +479,12 @@
 </nav>
 
 <!-- HERO -->
+<div style="text-align:center; padding: 6rem 3rem 0; background: var(--white);">
+  <p style="font-size:.75rem; letter-spacing:.16em; text-transform:uppercase; color:var(--stone);">Welcome to my website</p>
+</div>
 <section id="home">
   <div class="hero-text fade-up">
-    <p class="hero-label">Welcome to my website!</p>
-    <p class="hero-label" style="margin-top:-.8rem;">Economist · PhD Candidate</p>
+    <p class="hero-label">Economist · PhD Candidate</p>
     <h1>Jesus <em>Gutierrez</em><br>Andrade</h1>
     <p class="hero-sub">PhD Candidate in Economics at Lancaster University. I study how education, health, and public policy shape inequality and opportunity in Latin America.</p>
     <div class="hero-btns">
