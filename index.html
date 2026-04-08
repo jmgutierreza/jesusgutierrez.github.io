@@ -575,9 +575,9 @@
       </div>
     </div>
     <p class="paper-title">Who Stays the Course? Early Classroom Rank and Educational Trajectories</p>
-    <p class="paper-journal">Working Paper (with Saurabh Singhal) · Lancaster University</p>
+    <p class="paper-journal">Chapter 1 (with Saurabh Singhal) · Lancaster University</p>
     <p class="paper-hook">
-      Where you rank in Grade 2 shapes whether you finish school a decade later — but not because
+      Where you rank in Grade 2 shapes whether you finish school a decade later — but not neccesarily because
       of what you learn. High rank builds aspirations and parental investment; low rank erodes them.
       Yet when top-ranked students from poor families reach the university gate, socioeconomic
       barriers stop merit from becoming access.
@@ -585,7 +585,7 @@
     <a href="#" target="_blank" class="paper-readmore">Read the paper →</a>
   </div>
   <div class="paper-right">
-    <p class="chart-title">Effect of Grade 2 rank on educational outcomes across the distribution</p>
+    <p class="chart-title">Early ordinal rank effect on educational trajectories (based on math scores)</p>
     <div class="chart-wrap" style="height:200px;">
       <canvas id="chart0"></canvas>
     </div>
@@ -678,10 +678,6 @@
 
 <div class="wip-section fade-up">
     <p class="wip-label">Work in Progress</p>
-    <div class="wip-item">
-      <span class="wip-title">Who Stays the Course? Early Classroom Rank and Educational Trajectories — with Saurabh Singhal</span>
-      <span class="wip-status">In Progress</span>
-    </div>
     <div class="wip-item">
       <span class="wip-title">The Impact of Start Age on School Progression — with Maria Pía Basurto, Antonio Campos y Valeria Hoyos</span>
       <span class="wip-status">In Progress</span>
@@ -926,24 +922,43 @@
 new Chart(document.getElementById('chart0'), {
   type: 'bar',
   data: {
-    labels: ['0–5', '5–10', '10–15', '15–20', '20–25', '25–30', '30–35', '35–40', '40–45', '45–50',
-             '51–55', '55–60', '60–65', '65–70', '70–75', '75–80', '80–85', '85–90', '90–95', '95–100'],
+    labels: ['Completed\nPrimary', 'Completed\nSecondary', 'Applied\nto uni', 'Admitted\nto uni', 'Enrolled\nto uni'],
     datasets: [
       {
-        label: 'Grade repetition risk (pp)',
-        data: [8.2, 6.1, 4.8, 3.5, 2.4, 1.8, 1.2, 0.6, 0.2, 0,
-               0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        backgroundColor: '#c0392b',
+        label: 'Estimate (pp)',
+        data: [0.8, 16.2, 1.6, 0.7, 0.6],
+        backgroundColor: ['#1a3a5c', '#1a3a5c', '#1a3a5c', '#2e6099', '#9ab3c8'],
         borderWidth: 0,
         borderRadius: 2,
+        barPercentage: 0.5,
       },
       {
-        label: 'University application gain (pp)',
-        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-               0, 0, 0, 0, 0, 0.3, 0.8, 1.4, 2.1, 3.8],
-        backgroundColor: '#1a3a5c',
-        borderWidth: 0,
-        borderRadius: 2,
+        label: '95% CI upper',
+        data: [
+          0.8 + 1.96 * 0.1,
+          16.2 + 1.96 * 0.5,
+          1.6 + 1.96 * 0.4,
+          0.7 + 1.96 * 0.4,
+          0.6 + 1.96 * 0.4
+        ],
+        type: 'scatter',
+        pointStyle: false,
+        showLine: false,
+        pointRadius: 0,
+      },
+      {
+        label: '95% CI lower',
+        data: [
+          0.8 - 1.96 * 0.1,
+          16.2 - 1.96 * 0.5,
+          1.6 - 1.96 * 0.4,
+          0.7 - 1.96 * 0.4,
+          0.6 - 1.96 * 0.4
+        ],
+        type: 'scatter',
+        pointStyle: false,
+        showLine: false,
+        pointRadius: 0,
       }
     ]
   },
@@ -951,32 +966,84 @@ new Chart(document.getElementById('chart0'), {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        display: true,
-        position: 'bottom',
-        labels: { boxWidth: 12, padding: 14, font: { size: 10 } }
-      },
+      legend: { display: false },
       tooltip: {
         callbacks: {
-          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y > 0 ? '+' : ''}${ctx.parsed.y} pp`
+          label: ctx => {
+            if (ctx.datasetIndex !== 0) return null;
+            const ses = [0.1, 0.5, 0.4, 0.4, 0.4];
+            const sigs = ['***', '***', '***', '*', ''];
+            const i = ctx.dataIndex;
+            return ` ${ctx.parsed.y.toFixed(1)} pp ${sigs[i]}  (se = ${ses[i]})`;
+          }
+        }
+      },
+      annotation: {
+        annotations: {
+          zeroline: {
+            type: 'line',
+            yMin: 0, yMax: 0,
+            borderColor: '#0f0f0f',
+            borderWidth: 1,
+          }
         }
       }
     },
     scales: {
       x: {
         grid: { display: false },
-        ticks: { font: { size: 9 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 },
-        border: { display: false },
-        title: { display: true, text: 'Grade 2 classroom rank percentile', color: STONE, font: { size: 10 } }
+        ticks: { font: { size: 10 }, color: '#8a8880', maxRotation: 0 },
+        border: { display: false }
       },
       y: {
         grid: gridOpts,
         ticks: { ...tickOpts, callback: v => v + ' pp' },
         border: { display: false },
-        title: { display: true, text: 'Estimated effect (pp)', color: STONE, font: { size: 10 } }
+        title: { display: true, text: 'Effect of moving from p0 to p100 (pp)', color: '#8a8880', font: { size: 10 } }
       }
     }
-  }
+  },
+  plugins: [{
+    id: 'errorbars',
+    afterDraw(chart) {
+      const ctx = chart.ctx;
+      const meta = chart.getDatasetMeta(0);
+      const ses = [0.1, 0.5, 0.4, 0.4, 0.4];
+      ctx.save();
+      ctx.strokeStyle = '#0f0f0f';
+      ctx.lineWidth = 1.5;
+      meta.data.forEach((bar, i) => {
+        const x = bar.x;
+        const yUp = chart.scales.y.getPixelForValue(parseFloat((chart.data.datasets[0].data[i] + 1.96 * ses[i]).toFixed(4)));
+        const yDown = chart.scales.y.getPixelForValue(parseFloat((chart.data.datasets[0].data[i] - 1.96 * ses[i]).toFixed(4)));
+        ctx.beginPath();
+        ctx.moveTo(x, yUp);
+        ctx.lineTo(x, yDown);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x - 5, yUp);
+        ctx.lineTo(x + 5, yUp);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x - 5, yDown);
+        ctx.lineTo(x + 5, yDown);
+        ctx.stroke();
+      });
+      ctx.restore();
+
+      // zero line
+      const y0 = chart.scales.y.getPixelForValue(0);
+      ctx.save();
+      ctx.strokeStyle = '#0f0f0f';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(chart.chartArea.left, y0);
+      ctx.lineTo(chart.chartArea.right, y0);
+      ctx.stroke();
+      ctx.restore();
+    }
+  }]
 });
   
   // ─────────────────────────────────────────────
