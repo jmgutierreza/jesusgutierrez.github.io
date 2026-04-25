@@ -406,6 +406,27 @@
   .cv-role { font-size: .98rem; font-weight: 500; color: var(--ink); margin-bottom: .15rem; }
   .cv-place { font-size: .88rem; color: var(--stone); font-style: italic; }
   .cv-download { margin-top: 3rem; }
+  .cv-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    align-items: center;
+  }
+  .cv-download-side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .cv-download-text {
+    font-size: 1rem;
+    color: var(--stone);
+    line-height: 1.7;
+    max-width: 380px;
+  }
 
   /* ── CONTACT ── */
   #contact .contact-layout {
@@ -487,6 +508,8 @@
     .paper-item { grid-template-columns: 40px 1fr; }
     .paper-link { display: none; }
     #cv .cv-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .cv-split { grid-template-columns: 1fr; gap: 2.5rem; padding: 0 1.5rem; }
+    .cv-download-side { align-items: flex-start; }
     #contact .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
     footer { flex-direction: column; gap: .5rem; text-align: center; }
   }
@@ -809,9 +832,29 @@
     <h2>Curriculum<br>Vitae</h2>
     <div class="divider"></div>
   </div>
-  <div class="cv-compact fade-up">
-    <p class="cv-compact-text">You can view my full CV here.</p>
-    <a href="Gutierrez_Andrade_CV.pdf" download class="btn-primary">Download CV (PDF)</a>
+  <div class="cv-split fade-up">
+    <div class="cv-education">
+      <p class="cv-col-title">Education</p>
+      <div class="cv-entry">
+        <p class="cv-year">2024 – 2028</p>
+        <p class="cv-role">PhD in Economics</p>
+        <p class="cv-place">Lancaster University, UK</p>
+      </div>
+      <div class="cv-entry">
+        <p class="cv-year">2022</p>
+        <p class="cv-role">M.Sc. in Economics</p>
+        <p class="cv-place">Universidad del Pacífico, Lima, Peru</p>
+      </div>
+      <div class="cv-entry">
+        <p class="cv-year">2017</p>
+        <p class="cv-role">B.A. in Economics</p>
+        <p class="cv-place">Universidad del Pacífico, Lima, Peru</p>
+      </div>
+    </div>
+    <div class="cv-download-side">
+      <p class="cv-download-text">You can view my full CV here.</p>
+      <a href="Gutierrez_Andrade_CV.pdf" download class="btn-primary">Download Full CV (PDF)</a>
+    </div>
   </div>
 </section>
 
